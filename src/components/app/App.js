@@ -3,11 +3,11 @@ import './App.css';
 import LangSwitcher from "../langSwitcher/LangSwitcher";
 import SearchBar from "../searchBar/SearchBar";
 import SearchingHistoryScreen from "../searchingHistoryScreen/SearchingHistoryScreen";
-import { getUserLocaton } from "../../actions/userLocation";
+import { getUserLocation } from "../../actions/userLocation";
 
 const App = () => {
     useEffect(() => {
-        getUserLocaton();
+        getUserLocation();
     });
 
     return (
