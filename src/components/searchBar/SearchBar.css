@@ -1,0 +1,7 @@
+.header__search-bar {
+    display: flex;
+}
+
+.header__search-bar-input {
+    margin-right: 15px;
+}

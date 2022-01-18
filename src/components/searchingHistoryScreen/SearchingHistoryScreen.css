@@ -1,0 +1,14 @@
+.searching-history-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.col {
+    width: 18%;
+    margin-bottom: 32px;
+}
+
+.col:last-child {
+    margin-right: 0;
+}

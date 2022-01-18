@@ -1,0 +1,16 @@
+.app-wrapper {
+  padding: 25px;
+  min-height: 100vh;
+}
+
+.header__lang-switcher-wrapper {
+  align-self: flex-end;
+}
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+}
