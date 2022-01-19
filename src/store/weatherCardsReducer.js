@@ -1,23 +1,5 @@
 const defaultState = {
-    weatherCards: [
-        {
-            cityName: 'dnipro',
-            cityLettersCode: '',
-            dayOfWeek: '',
-            dayOfMonth: 0,
-            month: 0,
-            time: '',
-            weatherIcon: '',
-            weatherDescription: '',
-            tempInFahrenheit: 0,
-            tempInCelsius: 0,
-            weatherFeelsLike: '',
-            windSpeed: '',
-            humidity: 0,
-            pressure: 0,
-            id: new Date()
-        }
-    ]
+    weatherCards: []
 };
 
 const ADD_WEATHER_CARD = 'ADD_WEATHER_CARD';
@@ -26,13 +8,8 @@ const REMOVE_WEATHER_CARD = 'REMOVE_WEATHER_CARD';
 export const weatherCardsReducer = (state = defaultState, action) => {
     switch (action.type) {
         case ADD_WEATHER_CARD:
-            const weatherData = action.payload;
 
-            const newCard = {
-                ...weatherData, id: Date.now()
-            };
-
-            return {...state, weatherCards: [...state.weatherCards, newCard]};
+            return {...state, weatherCards: [...state.weatherCards, action.payload]};
         case REMOVE_WEATHER_CARD:
             // const newWeatherCards = [...state.weatherCards].filter(card => card.id !== action.payload.cardId);
             //

@@ -1,4 +1,4 @@
-import { getWeatherData } from '../store/weatherReducer';
+// import { getWeatherData } from '../store/weatherReducer';
 import {addWeatherCard} from "../store/weatherCardsReducer";
 
 export const fetchWeather = (city) => {
@@ -8,8 +8,7 @@ export const fetchWeather = (city) => {
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${WEATHER_API_KEY}`)
             .then(response => response.json())
             .then(data => {
-                    dispatch(getWeatherData(data))
-                    const weatherData = {
+                    const newCard = {
                         cityName: data.name,
                         cityLettersCode: data.sys.country,
                         // dayOfWeek: dow,
@@ -24,12 +23,12 @@ export const fetchWeather = (city) => {
                         windSpeed: `${data.wind.speed} m/s`,
                         humidity: data.main.humidity,
                         pressure: data.main.pressure,
-                        cod: data.cod
+                        cod: data.cod,
+                        id: Date.now()
                     }
 
-                    // формирую карточку и передаю в таблицу на рендер через массив в сторе
-
-                    dispatch(addWeatherCard(weatherData))
+                    // dispatch(getWeatherData(data));
+                    dispatch(addWeatherCard(newCard));
                 }
             )
             .catch(error => alert('city not found'))

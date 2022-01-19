@@ -1,3 +1,99 @@
 .card {
-    border: 1px solid black;
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
 }
+
+.card-header {
+    display: flex;
+}
+
+.card-header__location {
+    width: 55%;
+}
+
+.card-header__weather-description {
+    text-align: right;
+    width: 42.5%;
+    padding-right: 5px;
+}
+
+.card-header__remove-btn-wrapper {
+    width: 7.5%;
+}
+
+.card-header__data {
+    font-size: 11px;
+}
+
+.card-header__remove-btn-wrapper {
+    text-align: center;
+    height: 25px;
+    color: grey;
+}
+
+.graph {
+    height: 65px;
+    background-color: orange;
+    margin-bottom: 15px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.card-footer__temp-container {
+    width: 50%;
+    text-align: left;
+}
+
+.card-footer__other-info-container {
+    width: 50%;
+    text-align: right;
+}
+
+.card-footer__temp {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+.card-footer__celsius-btn {
+    font-weight: bold;
+    color: grey;
+    margin-right: 5px;
+}
+
+.card-footer__temp-divider {
+    color: grey;
+    margin-right: 5px;
+}
+
+.card-footer__fahrenheit-btn {
+    font-weight: bold;
+    color: black;
+}
+
+.card-footer__temp-feels-like {
+    font-size: 10px;
+    color: lightgrey;
+}
+
+.card-footer__other-info {
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-footer__wind,
+.card-footer__humidity,
+.card-footer__pressure {
+    color: #459DE9;
+    margin-left: 5px;
+}
+
+
+
+
+

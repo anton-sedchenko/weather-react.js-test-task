@@ -12,20 +12,25 @@ const WeatherCardsTable = () => {
 
     return (
         <div className="weather-cards-container">
-            <TransitionGroup component={null}>
-                {weatherCardsAtStore.map((card) => {
+            {
+                weatherCardsAtStore.length === 0 ?
+                    '' :
 
-                    return (
-                        <CSSTransition
-                            key={ card.id }
-                            timeout={ 500 }
-                        >
-                            <div className="card-wrapper">
-                                <Card card={card} />
-                            </div>
-                        </CSSTransition>)
-                }) }
-            </TransitionGroup>
+                    <TransitionGroup component={null}>
+                        {weatherCardsAtStore.map((card) => {
+
+                            return (
+                                <CSSTransition
+                                    key={ card.id }
+                                    timeout={ 500 }
+                                >
+                                    <div className="card-wrapper">
+                                        <Card card={card} />
+                                    </div>
+                                </CSSTransition>)
+                        }) }
+                    </TransitionGroup>
+            }
         </div>
     );
 };
