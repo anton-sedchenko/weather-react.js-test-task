@@ -1,5 +1,3 @@
-import { createStore } from 'redux';
-
 const defaultState = {
     weatherData: {
         cityName: '',
@@ -22,16 +20,15 @@ const defaultState = {
 const GET_WEATHER_AT_DEFAULT_CITY = 'GET_WEATHER_AT_DEFAULT_CITY';
 const GET_WEATHER_AT_GIVEN_CITY = 'GET_WEATHER_AT_GIVEN_CITY';
 
-const reducer = (state = defaultState, action) => {
+export const weatherReducer = (state = defaultState, action) => {
     switch (action.type) {
         case GET_WEATHER_AT_DEFAULT_CITY:
-            return { ...state, weatherData: action.payload };
+            return {weatherData: action.payload};
         case GET_WEATHER_AT_GIVEN_CITY:
-            return { ...state, weatherData: action.payload };
+            return {weatherData: action.payload};
         default:
             return state;
     }
 };
 
-export const store = createStore(reducer);
-export const setWeatherData = weatherData => ({type: GET_WEATHER_AT_GIVEN_CITY, payload: weatherData});
+export const getWeatherData = payload => ({type: GET_WEATHER_AT_GIVEN_CITY, payload});

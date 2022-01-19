@@ -1,0 +1,12 @@
+.weather-cards-container {
+    border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-wrapper {
+    width: 20%;
+    padding: 0 15px;
+    margin-bottom: 32px;
+}
+

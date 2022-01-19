@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import LangSwitcher from "../langSwitcher/LangSwitcher";
 import SearchBar from "../searchBar/SearchBar";
-import SearchingHistoryScreen from "../searchingHistoryScreen/SearchingHistoryScreen";
+import WeatherCardsTable from "../weatherCardsTable/WeatherCardsTable";
 import { getUserLocation } from "../../actions/userLocation";
 
 const App = () => {
@@ -19,7 +19,7 @@ const App = () => {
                 <SearchBar />
             </header>
             <main>
-                <SearchingHistoryScreen />
+                <WeatherCardsTable />
             </main>
         </div>
     );

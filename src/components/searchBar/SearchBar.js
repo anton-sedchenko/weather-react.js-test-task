@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import { Button } from 'antd';
 import './SearchBar.css';
-import { getWeather } from "../../actions/weather";
-import {setWeatherData} from "../../store/store";
+import { fetchWeather } from "../../actions/weather";
+import { addWeatherCard } from "../../store/weatherCardsReducer";
 
 const SearchBar = () => {
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const SearchBar = () => {
             <Button
                 className="header__search-bar-button"
                 type="primary" size="large"
-                onClick={() => dispatch(setWeatherData(getWeather(inputValue)))}
+                onClick={() => dispatch(fetchWeather(inputValue))}
             >
                 Add
             </Button>
