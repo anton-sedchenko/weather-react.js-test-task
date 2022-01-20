@@ -48,3 +48,21 @@ export const fahrenheitToCelsius = (fahrenheit) => {
 
     return Math.round((fahrenheit - FORMULA_CONSTANT_1) * FORMULA_CONSTANT_2);
 }
+
+export const formNewCard = (fetchedData) => {
+    return {
+        cityName: fetchedData.name,
+        cityLettersCode: fetchedData.sys.country,
+        date: getDate(),
+        weatherIcon: `http://openweathermap.org/img/wn/${fetchedData.weather[0].icon}@2x.png`,
+        weatherDescription: fetchedData.weather[0].description,
+        tempInFahrenheit: Math.round(fetchedData.main.temp),
+        tempInCelsius: fahrenheitToCelsius(fetchedData.main.temp),
+        weatherFeelsLike: Math.round(fetchedData.main.feels_like) + '°F',
+        windSpeed: `${fetchedData.wind.speed} m/s`,
+        humidity: fetchedData.main.humidity,
+        pressure: fetchedData.main.pressure,
+        cod: fetchedData.cod,
+        id: Date.now()
+    }
+}

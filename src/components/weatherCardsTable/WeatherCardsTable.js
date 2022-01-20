@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from "../card/Card";
+import Card from '../card/Card';
 import './WeatherCardsTable.css';
 import { useSelector } from "react-redux";
 import {
@@ -13,23 +13,22 @@ const WeatherCardsTable = () => {
     return (
         <div className="weather-cards-container">
             {
-                weatherCardsAtStore.length === 0 ?
-                    '' :
+                weatherCardsAtStore.length > 0
+                &&
+                <TransitionGroup component={null}>
+                    {weatherCardsAtStore.map((card) => {
 
-                    <TransitionGroup component={null}>
-                        {weatherCardsAtStore.map((card) => {
-
-                            return (
-                                <CSSTransition
-                                    key={ card.id }
-                                    timeout={ 500 }
-                                >
-                                    <div className="card-wrapper">
-                                        <Card card={card} />
-                                    </div>
-                                </CSSTransition>)
-                        }) }
-                    </TransitionGroup>
+                        return (
+                            <CSSTransition
+                                key={ card.id }
+                                timeout={ 500 }
+                            >
+                                <div className="card-wrapper">
+                                    <Card card={card} />
+                                </div>
+                            </CSSTransition>)
+                    }) }
+                </TransitionGroup>
             }
         </div>
     );
