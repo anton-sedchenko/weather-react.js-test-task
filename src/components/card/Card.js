@@ -5,14 +5,15 @@ const Card = (weatherCard) => {
     return (
         <div className="card">
             <div className="card-header">
-                <div className="card-header__location">
-                    <b>{weatherCard.card.cityName}, {weatherCard.card.cityLettersCode}</b>
+                <div className="card-header__location-container">
+                    <span className="card-header__location">{weatherCard.card.cityName}, {weatherCard.card.cityLettersCode}</span>
                     <div className="card-header__data">
-                        <p>Fri, 19 February, 10:17</p>
+                        <p>{weatherCard.card.date}</p>
                     </div>
                 </div>
-                <div className="card-header__weather-description">
-                    {weatherCard.card.weatherDescription}
+                <div className="card-header__weather-description-container">
+                    <img className="card-header__weather-icon" src={weatherCard.card.weatherIcon} alt="weather icon"/>
+                    <span className="card-header__weather-description">{weatherCard.card.weatherDescription}</span>
                 </div>
                 <div className="card-header__remove-btn-wrapper">
                     <span className="card-header__remove-btn">x</span>
@@ -33,7 +34,7 @@ const Card = (weatherCard) => {
                     </div>
                     <div className="card-footer__temp-container-feelings">
                         <span className="card-footer__temp-feels-like">
-                            Feels like: {weatherCard.card.weatherFeelsLike}°C
+                            Feels like: {weatherCard.card.weatherFeelsLike}
                         </span>
                     </div>
                 </div>

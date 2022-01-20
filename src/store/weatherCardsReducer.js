@@ -8,8 +8,9 @@ const REMOVE_WEATHER_CARD = 'REMOVE_WEATHER_CARD';
 export const weatherCardsReducer = (state = defaultState, action) => {
     switch (action.type) {
         case ADD_WEATHER_CARD:
+            state.weatherCards.unshift(action.payload);
 
-            return {...state, weatherCards: [...state.weatherCards, action.payload]};
+            return {weatherCards: [...state.weatherCards]};
         case REMOVE_WEATHER_CARD:
             // const newWeatherCards = [...state.weatherCards].filter(card => card.id !== action.payload.cardId);
             //

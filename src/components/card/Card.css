@@ -8,22 +8,37 @@
     display: flex;
 }
 
-.card-header__location {
+.card-header__location-container {
     width: 55%;
 }
 
-.card-header__weather-description {
+.card-header__location {
+    font-size: 16px;
+}
+
+.card-header__data {
+    font-size: 18px;
+}
+
+.card-header__weather-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.card-header__weather-description-container {
     text-align: right;
     width: 42.5%;
     padding-right: 5px;
 }
 
-.card-header__remove-btn-wrapper {
-    width: 7.5%;
+.card-header__weather-description {
+    line-height: 1.5;
+    font-size: 13px;
+    color: #C5C5C5;
 }
 
-.card-header__data {
-    font-size: 11px;
+.card-header__remove-btn-wrapper {
+    width: 7.5%;
 }
 
 .card-header__remove-btn-wrapper {
@@ -44,29 +59,33 @@
 }
 
 .card-footer__temp-container {
-    width: 50%;
+    width: 60%;
     text-align: left;
 }
 
 .card-footer__other-info-container {
-    width: 50%;
+    width: 40%;
     text-align: right;
+}
+
+.card-footer__temp-container-real {
+    font-size: 18px;
 }
 
 .card-footer__temp {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 28px;
     margin-right: 5px;
 }
 
 .card-footer__celsius-btn {
     font-weight: bold;
-    color: grey;
+    color: #8D8D8D;
     margin-right: 5px;
 }
 
 .card-footer__temp-divider {
-    color: grey;
+    color: #8D8D8D;
     margin-right: 5px;
 }
 
@@ -76,12 +95,12 @@
 }
 
 .card-footer__temp-feels-like {
-    font-size: 10px;
-    color: lightgrey;
+    font-size: 13px;
+    color: #C5C5C5;
 }
 
 .card-footer__other-info {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
     margin-bottom: 10px;
 }
