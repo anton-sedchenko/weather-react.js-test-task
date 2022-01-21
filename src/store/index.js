@@ -1,11 +1,9 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
-// import { weatherReducer } from './weatherReducer';
-import { weatherCardsReducer } from "./weatherCardsReducer";
-import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { weatherCardsReducer } from "./weatherCardsReducer";
 
 const rootReducer = combineReducers({
-    // weatherData: weatherReducer,
     weatherCards: weatherCardsReducer
 })
 

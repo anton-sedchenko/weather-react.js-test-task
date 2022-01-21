@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Card.css';
+import { getAppSettings, IMPERIAL_UNIT_SYSTEM, METRIC_UNIT_SYSTEM, switchTempAppSettings } from "../../utils/utils";
 
-const Card = (weatherCard) => {
+const Card = (cardData) => {
+    const tempUnitInAppSettings = getAppSettings().tempUnit;
+    const [tempUnit, setTempUnit] = useState(tempUnitInAppSettings);
+    const currentCityTemp = {
+        celsius: cardData.card.tempInCelsius,
+        fahrenheit: cardData.card.tempInFahrenheit,
+        feelsLikeInCelsius: cardData.card.weatherFeelsLikeInCelsius,
+        feelsLikeInFahrenheit: cardData.card.weatherFeelsLikeInFahrenheit,
+    }
+    const activeTempBtnStyle ={};
+    if (tempUnit === METRIC_UNIT_SYSTEM) {
+        activeTempBtnStyle.isCelsiusBtnActive = {color: 'black'};
+        activeTempBtnStyle.isFahrenheitBtnActive = {color: ''};
+    } else {
+        activeTempBtnStyle.isCelsiusBtnActive = {color: ''};
+        activeTempBtnStyle.isFahrenheitBtnActive = {color: 'black'};
+    }
+
     return (
         <div className="card">
             <div className="card-header">
                 <div className="card-header__location-container">
-                    <span className="card-header__location">{weatherCard.card.cityName}, {weatherCard.card.cityLettersCode}</span>
+                    <span className="card-header__location">{cardData.card.cityName}, {cardData.card.cityLettersCode}</span>
                     <div className="card-header__data">
-                        <p>{weatherCard.card.date}</p>
+                        <p>{cardData.card.date}</p>
                     </div>
                 </div>
                 <div className="card-header__weather-description-container">
-                    <img className="card-header__weather-icon" src={weatherCard.card.weatherIcon} alt="weather icon"/>
-                    <span className="card-header__weather-description">{weatherCard.card.weatherDescription}</span>
+                    <img className="card-header__weather-icon" src={cardData.card.weatherIcon} alt="weather icon"/>
+                    <span className="card-header__weather-description">{cardData.card.weatherDescription}</span>
                 </div>
                 <div className="card-header__remove-btn-wrapper">
                     <span className="card-header__remove-btn">x</span>
@@ -26,15 +44,42 @@ const Card = (weatherCard) => {
                 <div className="card-footer__temp-container">
                     <div className="card-footer__temp-container-real">
                         <span className="card-footer__temp">
-                            {weatherCard.card.tempInFahrenheit}
+                            {
+                                tempUnit === METRIC_UNIT_SYSTEM
+                                ? currentCityTemp.celsius
+                                : currentCityTemp.fahrenheit
+                            }
                         </span>
-                        <span className="card-footer__celsius-btn">°C</span>
+                        <span
+                            className="card-footer__celsius-btn"
+                            style={activeTempBtnStyle.isCelsiusBtnActive}
+                            onClick={() => {
+                                setTempUnit(METRIC_UNIT_SYSTEM);
+                                switchTempAppSettings(METRIC_UNIT_SYSTEM);
+                            }}
+                        >
+                            °C
+                        </span>
                         <span className="card-footer__temp-divider">|</span>
-                        <span className="card-footer__fahrenheit-btn">°F</span>
+                        <span
+                            className="card-footer__fahrenheit-btn"
+                            style={activeTempBtnStyle.isFahrenheitBtnActive}
+                            onClick={() => {
+                                setTempUnit(IMPERIAL_UNIT_SYSTEM);
+                                switchTempAppSettings(IMPERIAL_UNIT_SYSTEM);
+                            }}
+                        >
+                            °F
+                        </span>
                     </div>
                     <div className="card-footer__temp-container-feelings">
                         <span className="card-footer__temp-feels-like">
-                            Feels like: {weatherCard.card.weatherFeelsLike}
+                            Feels like:
+                            {
+                                tempUnit === METRIC_UNIT_SYSTEM
+                                    ? currentCityTemp.feelsLikeInCelsius
+                                    : currentCityTemp.feelsLikeInFahrenheit
+                            }
                         </span>
                     </div>
                 </div>
@@ -42,19 +87,19 @@ const Card = (weatherCard) => {
                     <p className="card-footer__other-info">
                         Wind:
                         <span className="card-footer__wind">
-                            {weatherCard.card.windSpeed}
+                            {cardData.card.windSpeed}
                         </span>
                     </p>
                     <p className="card-footer__other-info">
                         Humidity:
                         <span className="card-footer__humidity">
-                            {weatherCard.card.humidity}%
+                            {cardData.card.humidity}%
                         </span>
                     </p>
                     <p className="card-footer__other-info">
                         Pressure:
                         <span className="card-footer__pressure">
-                            {weatherCard.card.pressure}Pa
+                            {cardData.card.pressure}Pa
                         </span>
                     </p>
                 </div>

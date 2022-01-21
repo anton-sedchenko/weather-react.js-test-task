@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from 'antd';
 import './SearchBar.css';
-import { fetchWeather } from "../../actions/weather";
+import { fetchWeather } from "../../actions/addWeatherCard";
 
 const SearchBar = () => {
     const dispatch = useDispatch();

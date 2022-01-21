@@ -1,3 +1,6 @@
+export const METRIC_UNIT_SYSTEM = 'metric';
+export const IMPERIAL_UNIT_SYSTEM = 'imperial';
+
 export const getDate = () => {
     const date = new Date();
     const daysOfWeek = {
@@ -42,27 +45,81 @@ export const getDate = () => {
     return `${dayOfWeek}, ${dayOfMonth} ${month}, ${hours}:${minutes}`;
 }
 
-export const fahrenheitToCelsius = (fahrenheit) => {
+export const saveDefaultTempUnitToLocalStorage = (metricConstant) => {
+    const weatherAppSettings = {
+        tempUnit: metricConstant,
+        userCityLocation: ''
+    }
+
+    localStorage.setItem('weatherAppSettings', JSON.stringify(weatherAppSettings));
+    console.log(JSON.parse(localStorage.getItem('weatherAppSettings')))
+}
+
+export const getAppSettings = () => JSON.parse(localStorage.getItem('weatherAppSettings'));
+
+export const switchTempAppSettings = (metricConstant) => {
+    localStorage.setItem('weatherAppSettings', JSON.stringify({
+        ...getAppSettings(),
+        tempUnit: metricConstant
+    }));
+}
+
+const fahrenheitToCelsius = (fahrenheit) => {
     const FORMULA_CONSTANT_1 = 32;
     const FORMULA_CONSTANT_2 = 5/9;
 
     return Math.round((fahrenheit - FORMULA_CONSTANT_1) * FORMULA_CONSTANT_2);
 }
 
+const celsiusToFahrenheit = (celsius) => {
+    const FORMULA_CONSTANT_1 = 32;
+    const FORMULA_CONSTANT_2 = 5/9;
+
+    return Math.round((celsius * FORMULA_CONSTANT_2) + FORMULA_CONSTANT_1);
+}
+
+const defineTemp = (fetchedData) => {
+    switch (fetchedData.tempUnit) {
+        case METRIC_UNIT_SYSTEM:
+            return ({
+                ...fetchedData,
+                tempInCelsius: Math.round(fetchedData.main.temp),
+                tempInFahrenheit: Math.round(celsiusToFahrenheit(fetchedData.main.temp)),
+                weatherFeelsLikeInCelsius: Math.round(fetchedData.main.feels_like) + '°C',
+                weatherFeelsLikeInFahrenheit: Math.round(celsiusToFahrenheit(fetchedData.main.feels_like)) + '°F'
+            });
+        case IMPERIAL_UNIT_SYSTEM:
+            return ({
+                ...fetchedData,
+                tempInCelsius: Math.round(fahrenheitToCelsius(fetchedData.main.temp)),
+                tempInFahrenheit: Math.round(fetchedData.main.temp),
+                weatherFeelsLikeInCelsius: Math.round(fahrenheitToCelsius(fetchedData.main.feels_like)) + '°C',
+                weatherFeelsLikeInFahrenheit: Math.round(fetchedData.main.feels_like) + '°F'
+            });
+        default:
+            return fetchedData;
+    }
+}
+
 export const formNewCard = (fetchedData) => {
+    const cardData = defineTemp(fetchedData);
+
     return {
-        cityName: fetchedData.name,
-        cityLettersCode: fetchedData.sys.country,
+        cityName: cardData.name,
+        cityLettersCode: cardData.sys.country,
         date: getDate(),
-        weatherIcon: `http://openweathermap.org/img/wn/${fetchedData.weather[0].icon}@2x.png`,
-        weatherDescription: fetchedData.weather[0].description,
-        tempInFahrenheit: Math.round(fetchedData.main.temp),
-        tempInCelsius: fahrenheitToCelsius(fetchedData.main.temp),
-        weatherFeelsLike: Math.round(fetchedData.main.feels_like) + '°F',
-        windSpeed: `${fetchedData.wind.speed} m/s`,
-        humidity: fetchedData.main.humidity,
-        pressure: fetchedData.main.pressure,
-        cod: fetchedData.cod,
+        weatherIcon: `http://openweathermap.org/img/wn/${cardData.weather[0].icon}@2x.png`,
+        weatherDescription: cardData.weather[0].description,
+        mainTemp: cardData.main.temp,
+        tempInFahrenheit: cardData.tempInFahrenheit,
+        tempInCelsius: cardData.tempInCelsius,
+        // weatherFeelsLike: Math.round(cardData.main.feels_like) + '°F',
+        weatherFeelsLikeInCelsius: cardData.weatherFeelsLikeInCelsius,
+        weatherFeelsLikeInFahrenheit: cardData.weatherFeelsLikeInFahrenheit,
+        windSpeed: `${cardData.wind.speed} m/s`,
+        humidity: cardData.main.humidity,
+        pressure: cardData.main.pressure,
+        cod: cardData.cod,
         id: Date.now()
     }
 }
