@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
+import { AreaChart, Area, XAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Card.css';
-import { getAppSettings, IMPERIAL_UNIT_SYSTEM, METRIC_UNIT_SYSTEM, switchTempAppSettings } from "../../utils/utils";
-import { useTranslation } from "react-i18next";
+import {
+    getAppSettings,
+    IMPERIAL_UNIT_SYSTEM,
+    METRIC_UNIT_SYSTEM,
+    switchTempAppSettings
+} from '../../utils/utils';
+import { useTranslation } from 'react-i18next';
+import { removeWeatherCard } from '../../store/index';
+import { useDispatch } from 'react-redux';
 
 const Card = (cardData) => {
+    const dispatch = useDispatch();
     const {t} = useTranslation();
     const tempUnitInAppSettings = getAppSettings().tempUnit;
     const [tempUnit, setTempUnit] = useState(tempUnitInAppSettings);
@@ -14,12 +23,26 @@ const Card = (cardData) => {
         feelsLikeInFahrenheit: cardData.card.weatherFeelsLikeInFahrenheit,
     }
     const activeTempBtnStyle ={};
+
     if (tempUnit === METRIC_UNIT_SYSTEM) {
         activeTempBtnStyle.isCelsiusBtnActive = {color: 'black'};
         activeTempBtnStyle.isFahrenheitBtnActive = {color: ''};
     } else {
         activeTempBtnStyle.isCelsiusBtnActive = {color: ''};
         activeTempBtnStyle.isFahrenheitBtnActive = {color: 'black'};
+    }
+
+    const graphData = cardData.card.forecastData.list.map(item => {
+        const date = item.dt_txt.slice(5, 10).split('-').reverse().join('.');
+
+        return ({
+            name: date,
+            temp: Math.round(item.main.temp)
+        });
+    });
+
+    const deleteCardHandler = () => {
+        dispatch(removeWeatherCard(cardData.card));
     }
 
     return (
@@ -36,11 +59,33 @@ const Card = (cardData) => {
                     <span className="card-header__weather-description">{cardData.card.weatherDescription}</span>
                 </div>
                 <div className="card-header__remove-btn-wrapper">
-                    <span className="card-header__remove-btn">x</span>
+                    <span
+                        className="card-header__remove-btn"
+                        onClick={deleteCardHandler}
+                    >
+                        x
+                    </span>
                 </div>
             </div>
             <div className="graph">
-                <p>graph</p>
+                <div style={{ width: '100%', height: '100%' }}>
+                    <ResponsiveContainer>
+                        <AreaChart
+                            data={graphData}
+                            margin={{
+                                top: 10,
+                                right: 30,
+                                left: 0,
+                                bottom: 0,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" />
+                            <Tooltip />
+                            <Area type="monotone" dataKey="temp" stroke="#8884d8" fill="#8884d8" />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </div>
             </div>
             <div className="card-footer">
                 <div className="card-footer__temp-container">

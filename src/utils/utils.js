@@ -1,5 +1,6 @@
 export const METRIC_UNIT_SYSTEM = 'metric';
 export const IMPERIAL_UNIT_SYSTEM = 'imperial';
+export const WEATHER_API_KEY = '9b56644e60324b0df2981fb0710b5417';
 
 export const getDate = () => {
     const date = new Date();
@@ -114,6 +115,8 @@ export const getCurrentLanguage = () => {
     return currentLanguage;
 }
 
+export const getCurrentCityLocation = () => getAppSettings().userCityLocation;
+
 export const switchTempAppSettings = (metricConstant) => {
     localStorage.setItem('weatherAppSettings', JSON.stringify({
         ...getAppSettings(),
@@ -175,6 +178,7 @@ export const formNewCard = (fetchedData) => {
         windSpeed: `${cardData.wind.speed} m/s`,
         humidity: cardData.main.humidity,
         pressure: cardData.main.pressure,
-        id: `${cardData.name}_${new Date().getTime()}`
+        id: `${cardData.name}_${new Date().getTime()}`,
+        forecastData: cardData.forecastData
     }
 }

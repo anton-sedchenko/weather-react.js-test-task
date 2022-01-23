@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from 'antd';
 import './SearchBar.css';
-import { fetchWeather } from "../../actions/addWeatherCard";
+import { fetchWeather } from '../../actions/addWeatherCard';
 import { useTranslation } from 'react-i18next';
 
 const SearchBar = () => {
@@ -11,7 +11,6 @@ const SearchBar = () => {
     const [inputValue, setInputValue] = useState('');
     const [selectedCities, setSelectedCities] = useState(JSON.parse(localStorage.getItem('selectedCities')) || []);
     const onAutocompleteItemClick = (e) => {
-        setInputValue(e.target.textContent);
         dispatch(fetchWeather(e.target.textContent));
         setInputValue('');
     }

@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { GlobalOutlined } from '@ant-design/icons';
 import './LangSwitcher.css';
-import i18next from "i18next";
-import {getCurrentLanguage} from "../../utils/utils";
+import i18next from 'i18next';
+import { getCurrentLanguage } from '../../utils/utils';
 
 const LangSwitcher = () => {
-    // const currentLanguageCode = localStorage.getItem('i18nextLng') || 'en';
-    // const currentLanguage = currentLanguageCode.charAt(0).toUpperCase() + currentLanguageCode.slice(1);
     const currentLanguage = getCurrentLanguage();
     const [language, setLanguage] = useState(currentLanguage);
     const languages = [

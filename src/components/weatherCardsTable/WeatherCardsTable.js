@@ -1,14 +1,14 @@
 import React from 'react';
 import Card from '../card/Card';
 import './WeatherCardsTable.css';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import {
     CSSTransition,
     TransitionGroup,
 } from 'react-transition-group';
 
 const WeatherCardsTable = () => {
-    const weatherCardsAtStore = useSelector(state => state.weatherCards.weatherCards || []);
+    const weatherCardsAtStore = useSelector(state => state.weatherCards || []);
 
     return (
         <div className="weather-cards-container">
@@ -20,8 +20,10 @@ const WeatherCardsTable = () => {
 
                         return (
                             <CSSTransition
-                                key={ card.id }
-                                timeout={ 500 }
+                                in={true}
+                                key={card.id}
+                                timeout={ 700 }
+                                classNames="weather-card"
                             >
                                 <div className="card-wrapper">
                                     <Card card={card} />
