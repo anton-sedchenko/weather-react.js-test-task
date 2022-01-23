@@ -1,33 +1,60 @@
-import React from 'react';
-import { Menu, Dropdown } from 'antd';
-import { GlobalOutlined, UpOutlined } from '@ant-design/icons';
+import React, {useEffect, useState} from 'react';
+import { GlobalOutlined } from '@ant-design/icons';
+import './LangSwitcher.css';
+import i18next from "i18next";
+import {getCurrentLanguage} from "../../utils/utils";
 
 const LangSwitcher = () => {
-    const langMenu = (
-        <Menu>
-            <Menu.Item>
-                <p>
-                    En
-                </p>
-                <p>
-                    UA
-                </p>
-                <p>
-                    HE
-                </p>
-            </Menu.Item>
-        </Menu>
-    );
+    // const currentLanguageCode = localStorage.getItem('i18nextLng') || 'en';
+    // const currentLanguage = currentLanguageCode.charAt(0).toUpperCase() + currentLanguageCode.slice(1);
+    const currentLanguage = getCurrentLanguage();
+    const [language, setLanguage] = useState(currentLanguage);
+    const languages = [
+        {
+            lang: 'En',
+            code: 'en'
+        },
+        {
+            lang: 'Ua',
+            code: 'ua'
+        },
+        {
+            lang: 'He',
+            code: 'he',
+            dir: 'rtl'
+        }
+    ];
+
+    useEffect(() => {
+        document.body.dir = currentLanguage.dir || 'ltr';
+    }, []);
 
     return (
-        <div className="header__lang-switcher">
-            <Dropdown overlay={langMenu}>
-                <a className="ant-dropdown-link" style={{color: 'grey'}} onClick={e => e.preventDefault()}>
-                    <GlobalOutlined />
-                    <span style={{margin: '10px'}}>EN</span>
-                    <UpOutlined />
-                </a>
-            </Dropdown>
+        <div className="dropdown dropup header__lang-switcher">
+            <button
+                className="btn btn-secondary dropdown-toggle header__lang-switcher-btn"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+                <GlobalOutlined />
+                <span style={{'margin': '0 5px'}}>{language}</span>
+            </button>
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {languages.map(({lang, code}) => (
+                    <li key={`${lang}_${new Date().getTime()}`}>
+                        <button className="dropdown-item"
+                            onClick={(e) => {
+                                i18next.changeLanguage(code);
+                                setLanguage(lang);
+                            }}
+                        >
+                            {lang}
+                        </button>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 };

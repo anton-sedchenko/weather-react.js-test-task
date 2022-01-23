@@ -61,12 +61,12 @@
 }
 
 .card-footer__temp-container {
-    width: 60%;
+    width: 50%;
     text-align: left;
 }
 
 .card-footer__other-info-container {
-    width: 40%;
+    width: 50%;
     text-align: right;
 }
 

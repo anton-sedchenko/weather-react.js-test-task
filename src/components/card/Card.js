@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './Card.css';
 import { getAppSettings, IMPERIAL_UNIT_SYSTEM, METRIC_UNIT_SYSTEM, switchTempAppSettings } from "../../utils/utils";
+import { useTranslation } from "react-i18next";
 
 const Card = (cardData) => {
+    const {t} = useTranslation();
     const tempUnitInAppSettings = getAppSettings().tempUnit;
     const [tempUnit, setTempUnit] = useState(tempUnitInAppSettings);
     const currentCityTemp = {
@@ -74,7 +76,7 @@ const Card = (cardData) => {
                     </div>
                     <div className="card-footer__temp-container-feelings">
                         <span className="card-footer__temp-feels-like">
-                            Feels like:
+                            {t('Feels like')}
                             {
                                 tempUnit === METRIC_UNIT_SYSTEM
                                     ? currentCityTemp.feelsLikeInCelsius
@@ -85,19 +87,19 @@ const Card = (cardData) => {
                 </div>
                 <div className="card-footer__other-info-container">
                     <p className="card-footer__other-info">
-                        Wind:
+                        {t('Wind')}
                         <span className="card-footer__wind">
                             {cardData.card.windSpeed}
                         </span>
                     </p>
                     <p className="card-footer__other-info">
-                        Humidity:
+                        {t('Humidity')}
                         <span className="card-footer__humidity">
                             {cardData.card.humidity}%
                         </span>
                     </p>
                     <p className="card-footer__other-info">
-                        Pressure:
+                        {t('Pressure')}
                         <span className="card-footer__pressure">
                             {cardData.card.pressure}Pa
                         </span>

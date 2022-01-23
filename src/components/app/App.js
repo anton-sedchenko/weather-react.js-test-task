@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import LangSwitcher from "../langSwitcher/LangSwitcher";
 import SearchBar from "../searchBar/SearchBar";

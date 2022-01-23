@@ -48,5 +48,5 @@
 
 .header__search-bar-button {
     border-radius: 6px;
-    width: 70px;
+    min-width: 70px;
 }

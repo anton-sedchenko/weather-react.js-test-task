@@ -1,1 +1,26 @@
+.header__lang-switcher-btn {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    color: #AFAFAF;
+    border: none;
+    box-shadow: none;
+}
 
+.header__lang-switcher-btn:active,
+.header__lang-switcher-btn:focus,
+.header__lang-switcher-btn:hover,
+.header__lang-switcher-btn:target {
+    color: #AFAFAF;
+    border: none;
+    outline: none;
+    background-color: white;
+    box-shadow: none;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .2);
+    min-width: 100px;
+
+}

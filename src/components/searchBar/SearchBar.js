@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 import { Button } from 'antd';
 import './SearchBar.css';
 import { fetchWeather } from "../../actions/addWeatherCard";
+import { useTranslation } from 'react-i18next';
 
 const SearchBar = () => {
+    const {t} = useTranslation();
     const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState('');
-    const [selectedCities, setSelectedCities] = useState(JSON.parse(localStorage.getItem('selectedCities')) || ['Lisbon']);
+    const [selectedCities, setSelectedCities] = useState(JSON.parse(localStorage.getItem('selectedCities')) || []);
     const onAutocompleteItemClick = (e) => {
         setInputValue(e.target.textContent);
         dispatch(fetchWeather(e.target.textContent));
@@ -49,7 +51,6 @@ const SearchBar = () => {
                         if (selectedCities.some((item) => item === inputValue)) {
                             return selectedCities;
                         }
-                        localStorage.setItem('selectedCities', JSON.stringify([...selectedCities, inputValue]));
 
                         return [...selectedCities, inputValue];
                     });
@@ -58,7 +59,7 @@ const SearchBar = () => {
                     setInputValue('');
                 }}
             >
-                Add
+                {t('Add')}
             </Button>
         </div>
 
