@@ -28,19 +28,23 @@ const getWeather = (cityName, tempUnit) => {
         .catch(error => console.log(error))
 }
 
-// find and save user city only when first come and geo allowed
-export const findUserCity = (location) => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${WEATHER_API_KEY}`)
-        .then(response => response.json())
-        .then(data => {
-            const userCity = data.name;
+// find and save user city only when first come and geo allowed, also render a card with weather
+export const findUserCityLocationWeather = (location) => {
 
-            localStorage.setItem('weatherAppSettings', JSON.stringify({
-                ...getAppSettings(),
-                userCityLocation: userCity
-            }));
-        })
-        .catch(error => console.log(error));
+    return function(dispatch) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${WEATHER_API_KEY}`)
+            .then(response => response.json())
+            .then(data => {
+                const userCity = data.name;
+
+                localStorage.setItem('weatherAppSettings', JSON.stringify({
+                    ...getAppSettings(),
+                    userCityLocation: userCity
+                }));
+                dispatch(getWeatherAtUsersLocation(userCity))
+            })
+            .catch(error => console.log(error));
+    }
 }
 
 // display city where user located at the moment if geo allowed

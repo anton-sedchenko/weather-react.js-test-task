@@ -7,7 +7,7 @@ import WeatherCardsTable from '../weatherCardsTable/WeatherCardsTable';
 import useGeolocation from '../../hooks/useGeolocation';
 import { getAppSettings, METRIC_UNIT_SYSTEM, saveDefaultTempUnitToLocalStorage } from '../../utils/utils';
 import { useDispatch } from 'react-redux';
-import { findUserCity, getWeatherAtUsersLocation } from '../../actions/addWeatherCard';
+import { findUserCityLocationWeather } from '../../actions/addWeatherCard';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -18,10 +18,7 @@ const App = () => {
     const location = useGeolocation();
 
     if (location.isLoaded) {
-        // find user city when geolocation has been allowed. Saving city name to local storage app settings
-        findUserCity(location);
-        const cityName = getAppSettings().userCityLocation;
-        dispatch(getWeatherAtUsersLocation(cityName));
+        dispatch(findUserCityLocationWeather(location));
     }
 
     return (
