@@ -44,9 +44,18 @@
 }
 
 .card-header__remove-btn-wrapper {
-    text-align: center;
     height: 25px;
     color: grey;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#color {
+    background-color: #FCB937;
+}
+.card-header__remove-btn-wrapper:hover {
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
 }
 
 .graph {
